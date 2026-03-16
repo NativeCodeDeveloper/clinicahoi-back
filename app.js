@@ -26,6 +26,7 @@ import tarifasProfesionalRoutes from "./view/tarifasProfesionalRoutes.js";
 import odontogramaRoutes from "./view/odontogramaRoutes.js";
 import { ejecutarRecordatoriosAutomaticos } from "./services/notificacionPreviaDia.js";
 import bloqueoAgendaRoutes from "./view/bloqueoAgendaRoutes.js";
+import publicacionesTituloDescripcionRoutes from "./view/publicacionesTtiloDescripcionRoutes.js";
 
 
 const app = express();
@@ -66,6 +67,7 @@ app.use("/categorias", categoriaRoutes);
 app.use("/subcategorias", subCategoriasRoutes);
 app.use("/publicaciones", publicacionesRoutes);
 app.use('/contacto', contactoRouter );
+app.use("/publicacionesTituloDetalle", publicacionesTituloDescripcionRoutes);
 app.use('/notificacion', notificacionAgendamientoRoutes);
 
 // Ruta para ejecutar recordatorios manualmente (útil para testing)
