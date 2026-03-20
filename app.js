@@ -27,6 +27,9 @@ import odontogramaRoutes from "./view/odontogramaRoutes.js";
 import { ejecutarRecordatoriosAutomaticos } from "./services/notificacionPreviaDia.js";
 import bloqueoAgendaRoutes from "./view/bloqueoAgendaRoutes.js";
 import publicacionesTituloDescripcionRoutes from "./view/publicacionesTtiloDescripcionRoutes.js";
+import profesionalAgendaAsignacionRoutes from "./view/profesionalAgendaAsignacionRoutes.js";
+import mediosDePagoRoutes from "./view/mediosDePagoRoutes.js";
+import conveniosRoutes from "./view/conveniosRoutes.js";
 
 
 const app = express();
@@ -69,6 +72,9 @@ app.use("/publicaciones", publicacionesRoutes);
 app.use('/contacto', contactoRouter );
 app.use("/publicacionesTituloDetalle", publicacionesTituloDescripcionRoutes);
 app.use('/notificacion', notificacionAgendamientoRoutes);
+app.use("/profesionalAgendaAsignacion", profesionalAgendaAsignacionRoutes);
+app.use("/mediosDePago", mediosDePagoRoutes);
+app.use("/convenios", conveniosRoutes);
 
 // Ruta para ejecutar recordatorios manualmente (útil para testing)
 app.get('/recordatorios/ejecutar', async (req, res) => {

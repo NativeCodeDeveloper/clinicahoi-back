@@ -1,0 +1,56 @@
+
+### POST para insertar una profesionalAgendaAsignacion
+POST http://localhost:3001/profesionalAgendaAsignacion/insertarProfesionalAgendaAsignacion
+Content-Type: application/json
+
+{
+  "titulo_profesionalAgendaAsignacion": "Asignacion de prueba",
+  "descripcion_profesionalAgendaAsignacion": "Descripcion de prueba para asignacion",
+  "porcentaje_remuneracion": 15.50,
+  "profesional_id": 1
+}
+
+
+### POST para seleccionar una profesionalAgendaAsignacion por ID
+POST http://localhost:3001/profesionalAgendaAsignacion/seleccionarProfesionalAgendaAsignacion
+Content-Type: application/json
+
+{
+  "profesionalAgendaAsignacion_id": 1
+}
+
+
+### POST para seleccionar profesionalAgendaAsignacion por profesional
+POST http://localhost:3001/profesionalAgendaAsignacion/seleccionarProfesionalAgendaAsignacionPorProfesional
+Content-Type: application/json
+
+{
+  "profesional_id": 1
+}
+
+
+### POST para actualizar una profesionalAgendaAsignacion
+POST http://localhost:3001/profesionalAgendaAsignacion/actualizarProfesionalAgendaAsignacion
+Content-Type: application/json
+
+{
+  "titulo_profesionalAgendaAsignacion": "Asignacion actualizada",
+  "descripcion_profesionalAgendaAsignacion": "Descripcion actualizada",
+  "porcentaje_remuneracion": 20.00,
+  "profesional_id": 1,
+  "profesionalAgendaAsignacion_id": 1
+}
+
+
+### POST para eliminar una profesionalAgendaAsignacion
+POST http://localhost:3001/profesionalAgendaAsignacion/eliminarProfesionalAgendaAsignacion
+Content-Type: application/json
+
+{
+  "profesionalAgendaAsignacion_id": 1
+}
+
+
+### GET para seleccionar todas las profesionalAgendaAsignacion
+GET http://localhost:3001/profesionalAgendaAsignacion/seleccionarTodasProfesionalAgendaAsignacion
+Content-Type: application/json

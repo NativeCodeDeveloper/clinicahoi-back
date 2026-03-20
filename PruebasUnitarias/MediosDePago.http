@@ -1,0 +1,43 @@
+
+### POST para insertar un mediosDePago
+POST http://localhost:3001/mediosDePago/insertarMediosDePago
+Content-Type: application/json
+
+{
+  "titulo_mediosDePago": "Efectivo",
+  "descripcion_mediosDePago": "Pago en efectivo"
+}
+
+
+### POST para seleccionar un mediosDePago por ID
+POST http://localhost:3001/mediosDePago/seleccionarMediosDePago
+Content-Type: application/json
+
+{
+  "mediosDePago_id": 1
+}
+
+
+### POST para actualizar un mediosDePago
+POST http://localhost:3001/mediosDePago/actualizarMediosDePago
+Content-Type: application/json
+
+{
+  "titulo_mediosDePago": "Transferencia bancaria",
+  "descripcion_mediosDePago": "Pago por transferencia bancaria",
+  "mediosDePago_id": 1
+}
+
+
+### POST para eliminar un mediosDePago
+POST http://localhost:3001/mediosDePago/eliminarMediosDePago
+Content-Type: application/json
+
+{
+  "mediosDePago_id": 1
+}
+
+
+### GET para seleccionar todos los mediosDePago
+GET http://localhost:3001/mediosDePago/seleccionarTodosMediosDePago
+Content-Type: application/json

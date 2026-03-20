@@ -1,0 +1,13 @@
+import {Router} from 'express';
+import ProfesionalAgendaAsignacionController from '../controller/ProfesionalAgendaAsignacionController.js';
+
+const router = Router();
+
+router.post('/insertarProfesionalAgendaAsignacion', ProfesionalAgendaAsignacionController.insertarProfesionalAgendaAsignacionController);
+router.post('/seleccionarProfesionalAgendaAsignacion', ProfesionalAgendaAsignacionController.seleccionarProfesionalAgendaAsignacionController);
+router.post('/seleccionarProfesionalAgendaAsignacionPorProfesional', ProfesionalAgendaAsignacionController.seleccionarProfesionalAgendaAsignacionPorProfesionalController);
+router.post('/actualizarProfesionalAgendaAsignacion', ProfesionalAgendaAsignacionController.actualizarProfesionalAgendaAsignacionController);
+router.post('/eliminarProfesionalAgendaAsignacion', ProfesionalAgendaAsignacionController.eliminarProfesionalAgendaAsignacionController);
+router.get('/seleccionarTodasProfesionalAgendaAsignacion', ProfesionalAgendaAsignacionController.seleccionarTodasProfesionalAgendaAsignacionController);
+
+export default router;

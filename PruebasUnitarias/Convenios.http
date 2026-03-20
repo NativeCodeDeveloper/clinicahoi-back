@@ -1,0 +1,43 @@
+
+### POST para insertar un convenio
+POST http://localhost:3001/convenios/insertarConvenio
+Content-Type: application/json
+
+{
+  "titulo_convenio": "Convenio de prueba",
+  "descripcion_convenio": "Descripcion del convenio de prueba"
+}
+
+
+### POST para seleccionar un convenio por ID
+POST http://localhost:3001/convenios/seleccionarConvenio
+Content-Type: application/json
+
+{
+  "id_convenio": 4
+}
+
+
+### POST para actualizar un convenio
+POST http://localhost:3001/convenios/actualizarConvenio
+Content-Type: application/json
+
+{
+  "titulo_convenio": "Convenio actualizado",
+  "descripcion_convenio": "Descripcion del convenio actualizado",
+  "id_convenio": 7
+}
+
+
+### POST para eliminar un convenio
+POST http://localhost:3001/convenios/eliminarConvenio
+Content-Type: application/json
+
+{
+  "id_convenio": 1
+}
+
+
+### GET para seleccionar todos los convenios
+GET http://localhost:3001/convenios/seleccionarTodosConvenios
+Content-Type: application/json
