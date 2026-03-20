@@ -48,6 +48,7 @@ export default class ProfesionalAgendaAsignacionController {
     static async seleccionarProfesionalAgendaAsignacionController(req, res) {
         try{
             const { profesionalAgendaAsignacion_id } = req.body;
+            console.log(req.body);
 
             if (!profesionalAgendaAsignacion_id) {
                 return res.status(400).json({ message: "sindata" });

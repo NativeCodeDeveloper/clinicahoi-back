@@ -90,11 +90,19 @@ export default class ProfesionalAgendaAsignacion {
         }
     }
 
-    //FUNCION PARA SELECCIONAR TODAS LAS ASIGNACIONES DE AGENDA PROFESIONAL
+    //FUNCION PARA SELECCIONAR TODAS LAS ASIGNACIONES DE AGENDA PROFESIONAL CON NOMBRE DE AGENDA
     async seleccionarTodasProfesionalAgendaAsignacion() {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT * FROM profesionalAgendaAsignacion WHERE estado_profesionalAgendaAsignacion <> 0";
+            const query = `
+              SELECT                                                          
+           asignacion.*,                                               
+      profesional.nombreProfesional                               
+     FROM profesionalAgendaAsignacion AS asignacion                  
+ INNER JOIN profesionales AS profesional                         
+            ON asignacion.profesional_id = profesional.id_profesional   
+                  WHERE asignacion.estado_profesionalAgendaAsignacion <> 0        
+                        AND profesional.estado_Profesional <> 0`
             const resultado = await conexion.ejecutarQuery(query);
 
             if (resultado) {

@@ -16,7 +16,7 @@ POST http://localhost:3001/profesionalAgendaAsignacion/seleccionarProfesionalAge
 Content-Type: application/json
 
 {
-  "profesionalAgendaAsignacion_id": 1
+  "profesionalAgendaAsignacion_id": 10
 }
 
 
@@ -25,7 +25,7 @@ POST http://localhost:3001/profesionalAgendaAsignacion/seleccionarProfesionalAge
 Content-Type: application/json
 
 {
-  "profesional_id": 1
+  "profesional_id": 6
 }
 
 
@@ -38,7 +38,7 @@ Content-Type: application/json
   "descripcion_profesionalAgendaAsignacion": "Descripcion actualizada",
   "porcentaje_remuneracion": 20.00,
   "profesional_id": 1,
-  "profesionalAgendaAsignacion_id": 1
+  "profesionalAgendaAsignacion_id": 11
 }
 
 
@@ -47,7 +47,7 @@ POST http://localhost:3001/profesionalAgendaAsignacion/eliminarProfesionalAgenda
 Content-Type: application/json
 
 {
-  "profesionalAgendaAsignacion_id": 1
+  "profesionalAgendaAsignacion_id": 4
 }
 
 
