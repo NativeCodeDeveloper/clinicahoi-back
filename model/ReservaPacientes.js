@@ -69,7 +69,22 @@ export default class ReservaPacientes {
     async seleccionarReservaEstado(estadoReserva) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT * FROM reservaPacientes WHERE estadoReserva = ? AND estadoPeticion <> 0"
+            const query = `
+            SELECT 
+            reservaPacientes.*,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion,
+            profesionales.nombreProfesional AS nombreProfesional 
+            
+            FROM reservaPacientes
+            INNER JOIN profesionalAgendaAsignacion
+            ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            
+            INNER JOIN profesionales
+            ON profesionales.id_profesional = reservaPacientes.id_profesional
+           
+            
+            WHERE estadoReserva = ? AND estadoPeticion <> 0
+            `
             const param = [estadoReserva]
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 
@@ -120,7 +135,7 @@ export default class ReservaPacientes {
     async eliminarReservaPaciente(id_reserva) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "DELETE FROM reservaPacientes WHERE id_reserva = ?";
+            const query = "UPDATE reservaPacientes SET estadoPeticion = 0 WHERE id_reserva = ?";
             const param = [id_reserva];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
@@ -138,7 +153,13 @@ export default class ReservaPacientes {
     async seleccionarFichasReservadasEspecifica(id_reserva) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT reservaPacientes.*, profesionales.nombreProfesional FROM reservaPacientes INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional WHERE reservaPacientes.id_reserva = ? AND reservaPacientes.estadoPeticion <> 0"
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.id_reserva = ? AND reservaPacientes.estadoPeticion <> 0`
             const param = [id_reserva];
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 
@@ -158,7 +179,13 @@ export default class ReservaPacientes {
     async seleccionarFichasReservadas() {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT reservaPacientes.*,profesionales.nombreProfesional FROM reservaPacientes INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional WHERE estadoPeticion <> 0"
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.estadoPeticion <> 0`
             const resultadoQuery = await conexion.ejecutarQuery(query);
             if (resultadoQuery) {
                 return resultadoQuery;
@@ -263,7 +290,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarSimilitudNombre(nombrePaciente) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'SELECT * FROM reservaPacientes WHERE nombrePaciente LIKE ? AND estadoPeticion <> 0 ';
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE nombrePaciente LIKE ? AND estadoPeticion <> 0`;
             const param = ['%' + nombrePaciente + '%'];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
@@ -282,7 +315,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarSimilitudRut(rut) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'SELECT * FROM reservaPacientes WHERE rut LIKE ? AND estadoPeticion <> 0 ';
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE rut LIKE ? AND estadoPeticion <> 0`;
             const param = ['%' + rut + '%'];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
@@ -303,7 +342,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarPorId_profesional(id_profesional) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'SELECT * FROM reservaPacientes WHERE id_profesional = ? AND estadoPeticion <> 0 ';
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.id_profesional = ? AND reservaPacientes.estadoPeticion <> 0`;
             const param = [id_profesional];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
@@ -319,7 +364,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarEntreFechas(fechaInicio, fechaFinalizacion) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'SELECT reservaPacientes.*, profesionales.nombreProfesional FROM reservaPacientes INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional WHERE reservaPacientes.fechaInicio BETWEEN ? AND ? AND reservaPacientes.estadoPeticion <> 0';
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.fechaInicio BETWEEN ? AND ? AND reservaPacientes.estadoPeticion <> 0`;
             const param = [fechaInicio, fechaFinalizacion];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
@@ -397,7 +448,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarFichasReservadasPreference(preference_id) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT * FROM reservaPacientes WHERE preference_id = ? AND estadoPeticion <> 0"
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.preference_id = ? AND reservaPacientes.estadoPeticion <> 0`
             const param = [preference_id];
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 
@@ -421,7 +478,13 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarReservasPorProfesional(id_pro) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT * FROM reservaPacientes WHERE preference_id = ? AND estadoPeticion <> 0"
+            const query = `SELECT reservaPacientes.*,
+            profesionales.nombreProfesional AS nombreProfesional,
+            profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+            FROM reservaPacientes
+            INNER JOIN profesionales ON reservaPacientes.id_profesional = profesionales.id_profesional
+            INNER JOIN profesionalAgendaAsignacion ON profesionalAgendaAsignacion.profesionalAgendaAsignacion_id = reservaPacientes.profesionalAgendaAsignacion_id
+            WHERE reservaPacientes.preference_id = ? AND reservaPacientes.estadoPeticion <> 0`
             const param = [id_pro];
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 
@@ -464,7 +527,23 @@ SELECT COUNT(*) AS cnt FROM (
     async seleccionarFichasReservadas_id_profesional(id_profesional) {
         try {
             const conexion = DataBase.getInstance();
-            const query = "SELECT * FROM reservaPacientes WHERE id_profesional = ? AND estadoPeticion <> 0"
+            const query = `
+  SELECT 
+      reservaPacientes.*,
+      profesionales.nombreProfesional AS nombreProfesional,
+      profesionalAgendaAsignacion.titulo_profesionalAgendaAsignacion AS titulo_profesionalAgendaAsignacion
+  
+  FROM reservaPacientes
+  
+  INNER JOIN profesionales
+      ON reservaPacientes.id_profesional = profesionales.id_profesional
+      
+  INNER JOIN profesionalAgendaAsignacion
+      ON reservaPacientes.profesionalAgendaAsignacion_id = profesionalAgendaAsignacion.profesionalAgendaAsignacion_id
+      
+  WHERE reservaPacientes.id_profesional = ?
+    AND reservaPacientes.estadoPeticion <> 0;
+          `;
             const param = [id_profesional];
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 

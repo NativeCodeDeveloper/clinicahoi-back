@@ -28,11 +28,11 @@ GET https://localhost:3001/reservaPacientes/seleccionarReservados
 
 
 ### 3. SELECCIONAR RESERVA ESPECIFICA (cambiar id_reserva)
-POST https://localhost:3001/reservaPacientes/seleccionarEspecifica
+POST http://localhost:3001/reservaPacientes/seleccionarEspecifica
 Content-Type: application/json
 
 {
-  "id_reserva": 1
+  "id_reserva": 191
 }
 
 
@@ -84,29 +84,29 @@ Content-Type: application/json
 
 
 ### 7. SELECCIONAR POR PROFESIONAL (cambiar id_profesional)
-POST https://localhost:3001/reservaPacientes/seleccionarPorProfesional
+POST http://localhost:3001/reservaPacientes/seleccionarPorProfesional
 Content-Type: application/json
 
 {
-  "id_profesional": 1
+  "id_profesional": 24
 }
 
 
 ### 8. SELECCIONAR SEGUN ESTADO
-POST https://localhost:3001/reservaPacientes/seleccionarSegunEstado
+POST http://localhost:3001/reservaPacientes/seleccionarSegunEstado
 Content-Type: application/json
 
 {
-  "estadoReserva": "reservada"
+  "estadoReserva": "confirmada"
 }
 
 
 ### 9. BUSCAR POR NOMBRE (similitud)
-POST https://localhost:3001/reservaPacientes/seleccionarNombre
+POST http://localhost:3001/reservaPacientes/seleccionarNombre
 Content-Type: application/json
 
 {
-  "nombrePaciente": "Juan"
+  "nombrePaciente": "pru"
 }
 
 
