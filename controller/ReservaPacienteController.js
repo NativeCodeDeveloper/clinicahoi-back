@@ -216,6 +216,38 @@ export default class ReservaPacienteController {
             );
 
             if (resultadoQuery.affectedRows > 0) {
+
+                // Correo al paciente
+                try {
+                    await NotificacionAgendamiento.enviarCorreoConfirmacionReserva({
+                        to: email,
+                        nombrePaciente,
+                        apellidoPaciente,
+                        rut,
+                        telefono,
+                        fechaInicio,
+                        horaInicio,
+                        fechaFinalizacion,
+                        horaFinalizacion,
+                        estadoReserva,
+                        id_reserva
+                    });
+                } catch (err) {
+                    console.error("[MAIL ACTUALIZACIÓN] Error:", err.message);
+                }
+
+                // Correo al equipo
+                NotificacionAgendamiento.enviarCorreoConfirmacionEquipo({
+                    nombrePaciente,
+                    apellidoPaciente,
+                    fechaInicio,
+                    horaInicio,
+                    accion: "AGENDADA",
+                    id_reserva
+                }).catch(err => {
+                    console.error("[MAIL EQUIPO ACTUALIZACIÓN] Error:", err.message);
+                });
+
                 return res.status(200).json({message: true});
             } else {
                 return res.status(200).json({message: false});
