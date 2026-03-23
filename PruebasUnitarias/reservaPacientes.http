@@ -1,17 +1,138 @@
-### POST request to example server
-POST https://localhost:3001/reservaPacientes/insertarReservaPacienteFicha
 
-  {
-    "nombrePaciente": "Juan",
-    "apellidoPaciente": "Pérez",
-    "rut": "12345678-9",
-    "telefono": "+56912345678",
-    "email": "juan@correo.cl",
-    "fechaInicio": "2026-03-01",
-    "horaInicio": "10:00:00",
-    "fechaFinalizacion": "2026-03-01",
-    "horaFinalizacion": "11:00:00",
-    "estadoReserva": "reservada",
-    "id_profesional": 1
-  }
 
+### 1. INSERTAR RESERVA (insertarReservaPacienteFicha)
+POST http://localhost:3001/reservaPacientes/insertarReservaPacienteFicha
+Content-Type: application/json
+
+{
+  "nombrePaciente": "Juan",
+  "apellidoPaciente": "Perez",
+  "rut": "123456789",
+  "telefono": "+56912345678",
+  "email": "juan@correo.cl",
+  "fechaInicio": "2026-04-10",
+  "horaInicio": "10:00:00",
+  "fechaFinalizacion": "2026-04-10",
+  "horaFinalizacion": "11:00:00",
+  "estadoReserva": "reservada",
+  "id_profesional": 1,
+  "cobro_reserva": 25000,
+  "mediosDePago_id": 1,
+  "id_convenio": 1,
+  "profesionalAgendaAsignacion_id": 1
+}
+
+
+### 2. SELECCIONAR TODOS LOS RESERVADOS
+GET https://localhost:3001/reservaPacientes/seleccionarReservados
+
+
+### 3. SELECCIONAR RESERVA ESPECIFICA (cambiar id_reserva)
+POST https://localhost:3001/reservaPacientes/seleccionarEspecifica
+Content-Type: application/json
+
+{
+  "id_reserva": 1
+}
+
+
+### 4. ACTUALIZAR RESERVA (cambiar id_reserva)
+POST https://localhost:3001/reservaPacientes/actualizarReservacion
+Content-Type: application/json
+
+{
+  "nombrePaciente": "Juan",
+  "apellidoPaciente": "Perez",
+  "rut": "123456789",
+  "telefono": "+56987654321",
+  "email": "juan.actualizado@correo.cl",
+  "fechaInicio": "2026-04-10",
+  "horaInicio": "14:00:00",
+  "fechaFinalizacion": "2026-04-10",
+  "horaFinalizacion": "15:00:00",
+  "estadoReserva": "confirmada",
+  "id_profesional": 1,
+  "id_reserva": 1,
+  "cobro_reserva": 30000,
+  "mediosDePago_id": 1,
+  "id_convenio": 1,
+  "profesionalAgendaAsignacion_id": 1
+}
+
+
+### 5. ACTUALIZAR ESTADO DE RESERVA (cambiar id_reserva)
+POST https://localhost:3001/reservaPacientes/actualizarEstado
+Content-Type: application/json
+
+{
+  "estadoReserva": "confirmada",
+  "id_reserva": 1
+}
+
+
+### 6. VALIDAR DISPONIBILIDAD HORARIA
+POST https://localhost:3001/reservaPacientes/validar
+Content-Type: application/json
+
+{
+  "fechaInicio": "2026-04-10",
+  "horaInicio": "10:00:00",
+  "fechaFinalizacion": "2026-04-10",
+  "horaFinalizacion": "11:00:00",
+  "id_profesional": 1
+}
+
+
+### 7. SELECCIONAR POR PROFESIONAL (cambiar id_profesional)
+POST https://localhost:3001/reservaPacientes/seleccionarPorProfesional
+Content-Type: application/json
+
+{
+  "id_profesional": 1
+}
+
+
+### 8. SELECCIONAR SEGUN ESTADO
+POST https://localhost:3001/reservaPacientes/seleccionarSegunEstado
+Content-Type: application/json
+
+{
+  "estadoReserva": "reservada"
+}
+
+
+### 9. BUSCAR POR NOMBRE (similitud)
+POST https://localhost:3001/reservaPacientes/seleccionarNombre
+Content-Type: application/json
+
+{
+  "nombrePaciente": "Juan"
+}
+
+
+### 10. BUSCAR POR RUT (similitud)
+POST https://localhost:3001/reservaPacientes/seleccionarRut
+Content-Type: application/json
+
+{
+  "rut": "12345678"
+}
+
+
+### 11. BUSCAR ENTRE FECHAS
+POST https://localhost:3001/reservaPacientes/buscarEntreFechas
+Content-Type: application/json
+
+{
+  "fechaInicio": "2026-04-01",
+  "fechaFinalizacion": "2026-04-30"
+}
+
+
+### 12. ELIMINAR RESERVA (cambiar id_reserva)
+POST https://localhost:3001/reservaPacientes/eliminarReserva
+Content-Type: application/json
+
+{
+  "id_reserva": 1
+}

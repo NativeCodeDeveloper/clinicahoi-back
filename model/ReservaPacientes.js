@@ -16,7 +16,19 @@ export default class ReservaPacientes {
         estadoReserva,
         estadoPeticion,
         preference_id,
-        id_profesional) {
+        id_profesional,
+
+
+        cobro_reserva,
+        mediosDePago_id,
+        id_convenio,
+        profesionalAgendaAsignacion_id
+
+    ) {
+        this.cobro_reserva = cobro_reserva;
+        this.mediosDePago_id = mediosDePago_id;
+        this.id_convenio = id_convenio;
+        this.profesionalAgendaAsignacion_id = profesionalAgendaAsignacion_id;
 
         this.id_reserva = id_reserva;
         this.nombrePaciente = nombrePaciente;
@@ -32,7 +44,6 @@ export default class ReservaPacientes {
         this.estadoPeticion = estadoPeticion;
         this.preference_id = preference_id;
         this.id_profesional = id_profesional;
-
     }
 
 
@@ -72,12 +83,28 @@ export default class ReservaPacientes {
     }
 
 
-    //METODO PARA ACTUALZIAR NUEVAS CITAS MEDICAS
-    async actualizarReserva(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva) {
+    //METODO PARA ACTUALZIAR NUEVAS CITAS
+    async actualizarReserva(
+        nombrePaciente,
+        apellidoPaciente,
+        rut,
+        telefono,
+        email,
+        fechaInicio,
+        horaInicio,
+        fechaFinalizacion,
+        horaFinalizacion,
+        estadoReserva,
+        id_profesional,
+        id_reserva,
+        cobro_reserva,
+        mediosDePago_id,
+        id_convenio,
+        profesionalAgendaAsignacion_id) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'UPDATE reservaPacientes SET nombrePaciente = ? , apellidoPaciente = ?, rut = ? , telefono = ? , email = ? , fechaInicio = ?  , horaInicio = ? , fechaFinalizacion = ? , horaFinalizacion = ? , estadoReserva = ? , id_profesional = ? WHERE id_reserva = ?';
-            const param = [nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva]
+            const query = 'UPDATE reservaPacientes SET nombrePaciente = ? , apellidoPaciente = ?, rut = ? , telefono = ? , email = ? , fechaInicio = ?  , horaInicio = ? , fechaFinalizacion = ? , horaFinalizacion = ? , estadoReserva = ? , id_profesional = ?, cobro_reserva = ?, mediosDePago_id = ?, id_convenio = ?, profesionalAgendaAsignacion_id = ? WHERE id_reserva = ?';
+            const param = [nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional,cobro_reserva,mediosDePago_id,id_convenio,profesionalAgendaAsignacion_id, id_reserva]
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
 
             if (resultadoQuery) {
@@ -144,11 +171,45 @@ export default class ReservaPacientes {
 
 
     //METODO PARA INSERTAR NUEVAS CITAS MEDICAS
-    async insertarReservaPaciente(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional) {
+    async insertarReservaPaciente(
+        nombrePaciente,
+        apellidoPaciente,
+        rut,
+        telefono,
+        email,
+        fechaInicio,
+        horaInicio,
+        fechaFinalizacion,
+        horaFinalizacion,
+        estadoReserva,
+        id_profesional,
+
+        cobro_reserva,
+        mediosDePago_id,
+        id_convenio,
+        profesionalAgendaAsignacion_id
+    ) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'INSERT INTO reservaPacientes(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio,fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional) VALUES (?,?,?,?,?,?,?,?,?,?,?)';
-            const param = [nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional];
+            const query = 'INSERT INTO reservaPacientes(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio,fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, cobro_reserva,mediosDePago_id,id_convenio,profesionalAgendaAsignacion_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+            const param = [
+                nombrePaciente,
+                apellidoPaciente,
+                rut,
+                telefono,
+                email,
+                fechaInicio,
+                horaInicio,
+                fechaFinalizacion,
+                horaFinalizacion,
+                estadoReserva,
+                id_profesional,
+
+                cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id
+            ];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
             if (resultadoQuery) {
@@ -293,11 +354,33 @@ SELECT COUNT(*) AS cnt FROM (
 
 
     //METODO PARA INSERTAR NUEVAS CITAS MEDICAS DESDE METODOS INTERNOS DEL BACKEND COMO MERCADO PAGO
-    async insertarReservaPacienteBackend(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, preference_id, estadoPeticion,id_profesional) {
+    async insertarReservaPacienteBackend(
+        nombrePaciente,
+        apellidoPaciente,
+        rut,
+        telefono,
+        email,
+        fechaInicio,
+        horaInicio,
+        fechaFinalizacion,
+        horaFinalizacion,
+        estadoReserva,
+        preference_id,
+        estadoPeticion,
+        id_profesional,
+
+
+
+        cobro_reserva,
+        mediosDePago_id,
+        id_convenio,
+        profesionalAgendaAsignacion_id
+
+        ) {
         try {
             const conexion = DataBase.getInstance();
-            const query = 'INSERT INTO reservaPacientes(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio,fechaFinalizacion, horaFinalizacion, estadoReserva, preference_id, estadoPeticion,id_profesional) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
-            const param = [nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, preference_id,estadoPeticion,id_profesional];
+            const query = 'INSERT INTO reservaPacientes(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio,fechaFinalizacion, horaFinalizacion, estadoReserva, preference_id, estadoPeticion,id_profesional,cobro_reserva,mediosDePago_id,id_convenio,profesionalAgendaAsignacion_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+            const param = [nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, preference_id,estadoPeticion,id_profesional,cobro_reserva,mediosDePago_id,id_convenio,profesionalAgendaAsignacion_id];
 
             const resultadoQuery = await conexion.ejecutarQuery(query, param);
             if (resultadoQuery) {

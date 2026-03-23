@@ -179,17 +179,41 @@ export default class ReservaPacienteController {
                 horaFinalizacion,
                 estadoReserva,
                 id_profesional,
-                id_reserva
+                id_reserva,
+                cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id
             } = req.body;
 
-            console.log(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva);
+            console.log(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva, cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id);
 
             if (!id_reserva || !id_profesional) {
                 return res.status(404).send({message: 'sindata'})
             }
 
             const claseReservaPaciente = new ReservaPacientes();
-            const resultadoQuery = await claseReservaPaciente.actualizarReserva(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, id_reserva);
+            const resultadoQuery = await claseReservaPaciente.actualizarReserva(
+                nombrePaciente,
+                apellidoPaciente,
+                rut,
+                telefono,
+                email,
+                fechaInicio,
+                horaInicio,
+                fechaFinalizacion,
+                horaFinalizacion,
+                estadoReserva,
+                id_profesional,
+                id_reserva,
+                cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id
+            );
 
             if (resultadoQuery.affectedRows > 0) {
                 return res.status(200).json({message: true});
@@ -289,13 +313,18 @@ export default class ReservaPacienteController {
                 fechaFinalizacion,
                 horaFinalizacion,
                 estadoReserva,
-                id_profesional
+                id_profesional,
+
+                cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id
 
             } = req.body;
 
             console.log(req.body);
 
-            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !email || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFinalizacion || !estadoReserva || !id_profesional) {
+            if (!nombrePaciente || !apellidoPaciente || !rut || !telefono || !email || !fechaInicio || !horaInicio || !fechaFinalizacion || !horaFinalizacion || !estadoReserva || !id_profesional || !mediosDePago_id || ! id_convenio || !profesionalAgendaAsignacion_id ) {
                 return res.status(400).send({message: "sindata"})
             }
 
@@ -306,7 +335,24 @@ export default class ReservaPacienteController {
                 return res.status(400).send({message: "conflicto"})
             } else {
 
-                const resultadoQuery = await claseReservaPaciente.insertarReservaPaciente(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional)
+                const resultadoQuery = await claseReservaPaciente.insertarReservaPaciente(
+                    nombrePaciente,
+                    apellidoPaciente,
+                    rut,
+                    telefono,
+                    email,
+                    fechaInicio,
+                    horaInicio,
+                    fechaFinalizacion,
+                    horaFinalizacion,
+                    estadoReserva,
+                    id_profesional,
+
+                    cobro_reserva,
+                    mediosDePago_id,
+                    id_convenio,
+                    profesionalAgendaAsignacion_id
+                )
 
                 if (resultadoQuery.affectedRows > 0) {
                     // Enviar correo de confirmación (no bloquear la respuesta si falla)
@@ -372,7 +418,11 @@ export default class ReservaPacienteController {
                 fechaFinalizacion,
                 horaFinalizacion,
                 estadoReserva,
-                id_profesional
+                id_profesional,
+                cobro_reserva,
+                mediosDePago_id,
+                id_convenio,
+                profesionalAgendaAsignacion_id
             } = req.body;
 
             console.log(req.body);
@@ -414,7 +464,7 @@ export default class ReservaPacienteController {
                 return res.status(400).send({message: "conflicto"})
             } else {
 
-                const resultadoQuery = await claseReservaPaciente.insertarReservaPaciente(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional)
+                const resultadoQuery = await claseReservaPaciente.insertarReservaPaciente(nombrePaciente, apellidoPaciente, rut, telefono, email, fechaInicio, horaInicio, fechaFinalizacion, horaFinalizacion, estadoReserva, id_profesional, cobro_reserva, mediosDePago_id, id_convenio, profesionalAgendaAsignacion_id)
 
                 if (resultadoQuery.affectedRows > 0) {
                     // Enviar correo de confirmación al paciente
